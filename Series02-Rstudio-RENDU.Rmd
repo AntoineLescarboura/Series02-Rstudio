@@ -138,3 +138,75 @@ print(data_prepost)
 
 <br>
 <br>
+
+
+
+## 2.2.2 The analysis
+
+
+- Does the treatment have an effect?
+
+Yes, the treatment appears to have an effect: performance after rehabilitation is higher compared to before.
+
+
+- What comparison are you going to make?
+
+We compare the same individuals’ performance before vs. after rehabilitation (paired data).
+
+
+- Which test will you use? Parametric or non-parametric?
+
+The sataset is normally distributed so I will use a paired t-test (parametric).
+
+
+- Which graph illustrates the effect of the treatment?
+
+A boxplot (Before vs. After) or a line plot connecting paired observations best illustrates the effect.
+
+
+
+```{r}
+# Load PrePost data
+data_prepost <- read.csv("Datas/PrePost.csv")
+
+
+# Create ID variable for pairing
+data_prepost$ID <- rep(1:(nrow(data_prepost)/2), times = 2)
+
+
+# Ensure Before → After order
+data_prepost$time <- factor(data_prepost$time, levels = c("Before", "After"), ordered = TRUE)
+
+
+# Separate vectors for paired test
+before <- data_prepost$perf[data_prepost$time == "Before"]
+after <- data_prepost$perf[data_prepost$time == "After"]
+
+
+# Paired t-test
+paired_test <- t.test(before, after, paired = TRUE)
+paired_test
+```
+
+
+```{r}
+# Boxplot with forced order
+
+ggplot(data_prepost, aes(x = time, y = perf, fill = time)) +
+geom_boxplot() +
+scale_fill_manual(values = c("Before" = "steelblue", "After" = "seagreen")) +
+labs(title = "Performance Before and After Rehabilitation",
+x = "Time",
+y = "Performance") +
+scale_x_discrete(limits = c("Before", "After")) +
+theme_minimal()
+```
+
+
+- What sentence will you write in your thesis to explain your result?
+
+The rehabilitation training significantly improved participants’ performance, as shown by a paired t-test (p < 0.05).
+
+
+---
+
