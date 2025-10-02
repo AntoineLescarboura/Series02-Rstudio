@@ -229,3 +229,153 @@ data_snore <- read.table("Datas/snore.txt", header = TRUE)
 head(data_snore)
 ```
 
+<br>
+<br>
+<br>
+<br>
+
+
+## 2.3.2 The Analysis
+
+<br>
+<br>
+
+### Are snorers fatter?
+```{r message=FALSE, warning=FALSE}
+# Box plot of weight by snoring status
+ggplot(data_snore, aes(x = snore, y = weight, fill = snore)) +
+  geom_boxplot() +
+  labs(title = "Weight Distribution by Snoring Status",
+       x = "Snoring Status",
+       y = "Weight (kg)") +
+  theme_minimal()
+
+# Summary statistics
+data_snore %>%
+  group_by(snore) %>%
+  summarise(mean_weight = mean(weight, na.rm = TRUE),
+            median_weight = median(weight, na.rm = TRUE),
+            sd_weight = sd(weight, na.rm = TRUE))
+```
+
+<br>
+
+The boxplots and the summary statistics are showing us that the weight distribution by the snoring status seems relatively equivalent so we could conclude that no, snorers aren't fatter.
+
+<br>
+<br>
+
+### Do snorers drink or smoke more?
+```{r}
+# Bar plot of drinking status by snoring status
+ggplot(data_snore, aes(x = factor(alcool), fill = factor(snore))) +
+  geom_bar(position = "dodge") +
+  labs(title = "Number of People per Alcohol Consumption and Snoring Status",
+       x = "Amount of Alcohol Consumed",
+       y = "Number of People",
+       fill = "Snorers") +
+  theme_minimal()
+
+# Bar plot of smoking status by snoring status
+ggplot(data_snore, aes(x = snore, fill = tabac)) +
+  geom_bar(position = "dodge") +
+  labs(title = "Smoking Status by Snoring Status",
+       x = "Snoring Status",
+       y = "Proportion") +
+  theme_minimal()
+```
+
+<br>
+
+The first barplot can indicate that someone who doesn't drink at all has a bigger chance to not snore but exept that, it seems that the snoring isn't really related to the alcohol consumption.
+
+<br>
+
+In the second barplot, we could maybe conclude that smoking helps snore less but that the reciprocate is not true (not smoking doesn't increase the snoring).
+
+<br>
+<br>
+
+### Are men fatter?
+```{r message=FALSE, warning=FALSE}
+data_snore$sex <- ifelse(data_snore$sex == "H", "Male", "Female")
+
+ggplot(data_snore, aes(x = sex, y = weight, fill = sex)) +
+  geom_boxplot(alpha = 0.7) +
+  labs(title = "Weight Distribution by Sex",
+       x = "Sex",
+       y = "Weight (kg)") +
+  theme_minimal()
+
+# Summary statistics
+data_snore %>%
+  group_by(sex) %>%
+  summarise(
+    count = n(),
+    mean = mean(weight, na.rm = TRUE),
+    sd = sd(weight, na.rm = TRUE),
+    min = min(weight, na.rm = TRUE),
+    Q1 = quantile(weight, 0.25, na.rm = TRUE),
+    median = median(weight, na.rm = TRUE),
+    Q3 = quantile(weight, 0.75, na.rm = TRUE),
+    max = max(weight, na.rm = TRUE)
+  )
+```
+
+<br>
+
+These boxplots reveals that males of this dataset can be heavier but the mean weight of women is superior to the mean weight of men. We can conclude that men aren't fatter (but women aren't either).
+
+<br>
+<br>
+
+### Do women smoke less?
+```{r}
+# Calculate percentage of smokers by sex
+smoking_percent <- data_snore %>%
+  group_by(sex) %>%
+  summarise(percent_smoker = mean(tabac == "O") * 100, .groups = "drop") %>%
+  complete(sex, fill = list(percent_smoker = 0))
+
+# Side-by-side bar plot
+ggplot(smoking_percent, aes(x = sex, y = percent_smoker, fill = sex)) +
+  geom_col(width = 0.5) +
+  geom_text(aes(label = paste0(round(percent_smoker, 1), "%")),
+            vjust = -0.5, size = 5) +
+  coord_cartesian(ylim = c(0, 100)) +
+  labs(title = "Percentage of Smokers by Sex",
+       x = "Sex",
+       y = "Percentage") +
+  theme_minimal() +
+  theme(legend.position = "none")
+```
+
+<br>
+
+In this dataset, we have 40% of women smoking while 72% of men are smoking. So, following this dataset, we could say that yes, women smoke less than men.
+
+<br>
+<br>
+
+### Correlations between variables
+```{r message=FALSE, warning=FALSE, paged.print=FALSE}
+numeric_vars <- data_snore %>% select(where(is.numeric))
+
+cor_matrix <- cor(numeric_vars, use = "complete.obs")
+
+corrplot(
+  cor_matrix,
+  method = "circle",      
+  type = "upper",        
+  diag = FALSE,          
+  tl.col = "black",      
+  tl.srt = 45,        
+  title = "Correlation Matrix of Numeric Variables",
+  mar = c(0,0,2,0)    
+)
+```
+
+There is a big positive correlation (nearly =  1) between height and weight so we can easily affirm that a heavier person is taller and a taller person is heavier, which seems pretty logical.
+We can also see on this correlation matrix that there is a small negative correlation (close to -1) between age and alcohol which means that people have a tendancy to consume less alcohol while aging.
+
+---
