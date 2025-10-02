@@ -1,0 +1,74 @@
+---
+title: "Series02-Rstudio-RENDU"
+output: html_document
+date: "2025-10-01"
+---
+
+<br>
+<br>
+<br>
+<br>
+
+## 2.1 Make clear what is a statistical test, and when to use it.
+Below are some questions to guide your analysis. You can answer them in your notebook, with a short sentence for each question.
+
+- What is a median? A mean?
+
+A median is the value right in the middle between the maximum and the minimum of the dataset.
+A mean is the average of all the values of the dataset.  
+
+
+- What is a variance? A standard deviation?
+
+The variance is the measure of data spread, the average squared deviation from the mean.
+The standard deviation is the square root of the variance.
+
+
+- What is a normal distribution?
+
+A normal distribution is when the values are symetrical around the mean value. Graphicly, it has the shape of a bell.
+
+
+- What is a statistical test?
+
+A statistical test is a test that allows to decide of data support or reject the hypothesis H0 that was chosen before the test.
+
+
+- When to use a statistical test?
+
+When we need to determine of a result is statistically significant or if it's due to chance or hazard.
+
+
+- What is a parametric test? A non-parametric test?
+
+A parametric test is a test where we assume a specific distribution. On the other end, a non-parametric test is where there are no distribution assumptions.
+
+
+- What are the assumptions of parametric tests?
+
+Normality, homogeneity of variances, independence of observations.
+
+
+- What are the assumptions of non-parametric tests?
+
+Often require independent samples and ordinal/continuous data.
+
+
+- What is a p-value?
+
+The p-value is the probability of obtaining data as extreme as observed, under the null hypothesis.
+It allows to know if there's a correlation between two datasets.
+
+
+- What is the risk of error when using a statistical test?
+
+The risk of error in a statistical test means either rejecting a true null hypothesis (Type I error) or failing to reject a 
+Reference: *Statistical Methods* (Snedecor & Cochran, 1989)
+
+
+- What is the difference between a paired and an unpaired test?
+
+A paired test compare measurements on the the same subjects before and after treatments while an unpaired test compare measurements between different groups.
+
+
+---
