@@ -210,3 +210,22 @@ The rehabilitation training significantly improved participants’ performance, 
 
 ---
 
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+# 2.3 Testing Some Stereotypes
+
+<br>
+<br>
+
+## 2.3.1 The Data
+```{r}
+data_snore <- read.table("Datas/snore.txt", header = TRUE)
+head(data_snore)
+```
+
