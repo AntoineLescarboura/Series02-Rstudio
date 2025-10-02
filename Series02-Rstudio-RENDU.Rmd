@@ -72,3 +72,69 @@ A paired test compare measurements on the the same subjects before and after tre
 
 
 ---
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+# 2.2 Effect of Treatment Over Time
+
+<br>
+<br>
+
+```{r setup, include=FALSE}
+# Import of all the libraries I'll need in this homework
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+library(dplyr)
+library(here)
+library(tidyr)
+library(corrplot)
+
+```
+
+
+
+## 2.2.1 The Data
+```{r}
+# Load data
+data_prepost <- read.csv("Datas/PrePost.csv")
+print(data_prepost)
+```
+
+<table style="border-collapse:collapse; width:100%; max-width:700px; font-family:Arial, sans-serif;">
+  <caption style="caption-side:top; text-align:left; font-weight:600; padding:6px 0;">Tableau des variables mesurées</caption>
+  <thead>
+    <tr>
+      <th style="border:1px solid #ccc; padding:8px; text-align:left; background:#f2f2f2;">Variable</th>
+      <th style="border:1px solid #ccc; padding:8px; text-align:left; background:#f2f2f2;">Description</th>
+      <th style="border:1px solid #ccc; padding:8px; text-align:left; background:#f2f2f2;">Unit</th>
+      <th style="border:1px solid #ccc; padding:8px; text-align:left; background:#f2f2f2;">Possible values</th>
+      <th style="border:1px solid #ccc; padding:8px; text-align:left; background:#f2f2f2;">Expected change</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="border:1px solid #ccc; padding:8px;">perf</td>
+      <td style="border:1px solid #ccc; padding:8px;">Performance index</td>
+      <td style="border:1px solid #ccc; padding:8px;">N/A</td>
+      <td style="border:1px solid #ccc; padding:8px;">125–148</td>
+      <td style="border:1px solid #ccc; padding:8px;">Increase</td>
+    </tr>
+    <tr>
+      <td style="border:1px solid #ccc; padding:8px;">time</td>
+      <td style="border:1px solid #ccc; padding:8px;">Measurement time</td>
+      <td style="border:1px solid #ccc; padding:8px;">categorical</td>
+      <td style="border:1px solid #ccc; padding:8px;">Before, After</td>
+      <td style="border:1px solid #ccc; padding:8px;">N/A</td>
+    </tr>
+  </tbody>
+</table>
+
+
+<br>
+<br>
